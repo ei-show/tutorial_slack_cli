@@ -9,17 +9,11 @@ import { InterpretColorFunction } from "./functions/interpret_color.ts";
  * https://api.slack.com/automation/manifest
  */
 export default Manifest({
-  name: "my-app",
-  description: "A template for building Slack apps with Deno",
+  name: "Meaning of Color App",
+  description: "The meaning of colors",
   icon: "assets/default_new_app_icon.png",
-  workflows: [SampleWorkflow],
+  functions: [InterpretColorFunction],
+  workflows: [],
   outgoingDomains: [],
-  datastores: [SampleObjectDatastore],
-  botScopes: [
-    "commands",
-    "chat:write",
-    "chat:write.public",
-    "datastore:read",
-    "datastore:write",
-  ],
+  botScopes: ["commands", "chat:write", "chat:write.public"],
 });
