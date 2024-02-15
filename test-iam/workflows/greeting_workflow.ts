@@ -38,10 +38,12 @@ const inputForm = GreetingWorkflow.addStep(
         name: "gcp_project",
         title: "GCPプロジェクト",
         type: Schema.types.string,
+        enum: ["test1","test2","test3"],
       }, {
         name: "permission",
         title: "必要な権限",
         type: Schema.types.string,
+        enum: ["test1","test2","test3"],
       }, {
         name: "reason",
         title: "理由",
