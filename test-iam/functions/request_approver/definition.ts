@@ -11,31 +11,12 @@ export const RequestApprover = DefineFunction({
   source_file: "functions/request_approver/mod.ts",
   input_parameters: {
     properties: {
-      channel: {
-        type: Schema.slack.types.channel_id,
-      },
-      requester: {
-        type: Schema.slack.types.user_id,
-        description: "申請者",
-      },
-      gcp_project: {
-        type: Schema.types.string,
-        description: "GCPプロジェクト",
-      },
-      permission: {
-        type: Schema.types.string,
-        description: "必要な権限",
-      },
-      reason: {
-        type: Schema.types.string,
-        description: "理由",
+      messageContext: {
+        type: Schema.slack.types.message_context,
       },
     },
     required: [
-      "channel",
-      "gcp_project",
-      "permission",
-      "reason",
+      "messageContext",
     ],
   },
   output_parameters: {

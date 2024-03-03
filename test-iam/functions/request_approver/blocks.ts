@@ -1,44 +1,29 @@
-/**
- * Based on user-inputted data, assemble a Block Kit approval message for easy
- * parsing by the approving manager.
- */
-// deno-lint-ignore no-explicit-any
-export default function requestApproveHeaderBlocks(inputs: any): any[] {
-  return [
-    {
-      type: "header",
-      text: {
-        type: "plain_text",
-        text: `GCPの権限権限申請がありました。承認者は確認をお願いします。`,
+import { APPROVE_ID, DENY_ID } from "./constants.ts";
+
+// 承認用ボタン
+export default function requestApproveBlocks(): any[] {
+  return [{
+    "type": "actions",
+    "block_id": "approve-deny-buttons",
+    "elements": [
+      {
+        type: "button",
+        text: {
+          type: "plain_text",
+          text: "Approve",
+        },
+        action_id: APPROVE_ID, // <-- important! we will differentiate between buttons using these IDs
+        style: "primary",
       },
-    },
-    {
-      type: "section",
-      text: {
-        type: "mrkdwn",
-        text: `*申請者:* <@${inputs.requester}>`,
+      {
+        type: "button",
+        text: {
+          type: "plain_text",
+          text: "Deny",
+        },
+        action_id: DENY_ID, // <-- important! we will differentiate between buttons using these IDs
+        style: "danger",
       },
-    },
-    {
-      type: "section",
-      text: {
-        type: "mrkdwn",
-        text: `*GCPプロジェクト:* <@${inputs.gcp_project}>`,
-      },
-    },
-    {
-      type: "section",
-      text: {
-        type: "mrkdwn",
-        text: `*権限:* ${inputs.permission}`,
-      },
-    },
-    {
-      type: "section",
-      text: {
-        type: "mrkdwn",
-        text: `*理由:* ${inputs.reason}`,
-      },
-    },
-  ];
+    ],
+  }]
 }
