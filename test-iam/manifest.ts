@@ -1,5 +1,6 @@
 import { Manifest } from "deno-slack-sdk/mod.ts";
 import GreetingWorkflow from "./workflows/greeting_workflow.ts";
+import { RequestApprover } from "./functions/request_approver/definition.ts";
 
 /**
  * The app manifest contains the app's configuration. This
@@ -10,8 +11,12 @@ export default Manifest({
   name: "test-iam",
   description: "一時的にGCPのIAMロールを付与するWFです。",
   icon: "assets/default_new_app_icon.png",
-  functions: [],
+  functions: [RequestApprover,],
   workflows: [GreetingWorkflow,],
   outgoingDomains: [],
-  botScopes: ["commands", "chat:write", "chat:write.public"],
+  botScopes: [
+    "commands",
+    "chat:write",
+    "chat:write.public",
+  ],
 });
