@@ -3,7 +3,7 @@ import { CreateTimeOffRequestWorkflow } from "./workflows/CreateTimeOffRequestWo
 import { SendTimeOffRequestToManagerFunction } from "./functions/send_time_off_request_to_manager/definition.ts";
 
 export default Manifest({
-  name: "request-time-off-app",
+  name: "request-time-off",
   description: "Ask your manager for some time off",
   icon: "assets/default_new_app_icon.png",
   workflows: [CreateTimeOffRequestWorkflow],
