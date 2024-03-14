@@ -67,33 +67,33 @@ export default SlackFunction(
     const approved = action.action_id === APPROVE_ID;
 
     // Send manager's response as a message to employee
-    const msgResponse = await client.chat.postMessage({
-      channel: body.function_data.inputs.employee,
-      blocks: [{
-        type: "context",
-        elements: [
-          {
-            type: "mrkdwn",
-            text:
-              `Your time off request from ${body.function_data.inputs.start_date} to ${body.function_data.inputs.end_date}` +
-              `${
-                body.function_data.inputs.reason
-                  ? ` for ${body.function_data.inputs.reason}`
-                  : ""
-              } was ${
-                approved ? " :white_check_mark: Approved" : ":x: Denied"
-              } by <@${body.user.id}>`,
-          },
-        ],
-      }],
-      text: `Your time off request was ${approved ? "approved" : "denied"}!`,
-    });
-    if (!msgResponse.ok) {
-      console.log(
-        "Error during requester update chat.postMessage!",
-        msgResponse.error,
-      );
-    }
+    // const msgResponse = await client.chat.postMessage({
+    //   channel: body.function_data.inputs.channel_id,
+    //   blocks: [{
+    //     type: "context",
+    //     elements: [
+    //       {
+    //         type: "mrkdwn",
+    //         text:
+    //           `Your time off request from ${body.function_data.inputs.start_date} to ${body.function_data.inputs.end_date}` +
+    //           `${
+    //             body.function_data.inputs.reason
+    //               ? ` for ${body.function_data.inputs.reason}`
+    //               : ""
+    //           } was ${
+    //             approved ? " :white_check_mark: Approved" : ":x: Denied"
+    //           } by <@${body.user.id}>`,
+    //       },
+    //     ],
+    //   }],
+    //   text: `Your time off request was ${approved ? "approved" : "denied"}!`,
+    // });
+    // if (!msgResponse.ok) {
+    //   console.log(
+    //     "Error during requester update chat.postMessage!",
+    //     msgResponse.error,
+    //   );
+    // }
 
     // Update the manager's message to remove the buttons and reflect the approval
     // state. Nice little touch to prevent further interactions with the buttons
@@ -121,9 +121,15 @@ export default SlackFunction(
 
     // And now we can mark the function as 'completed' - which is required as
     // we explicitly marked it as incomplete in the main function handler.
+    try {
     await client.functions.completeSuccess({
       function_execution_id: body.function_data.execution_id,
       outputs: {},
     });
+  } catch(e) {
+    console.error("foo", e);
+    throw e;
+    
+  }
   },
 );
