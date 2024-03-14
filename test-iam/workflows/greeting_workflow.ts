@@ -59,17 +59,22 @@ const inputForm = GreetingWorkflow.addStep(
   },
 );
 // step2 - スレッドを立てる 
-const preApproveMessage = GreetingWorkflow.addStep(Schema.slack.functions.SendMessage, {
-  channel_id: GreetingWorkflow.inputs.channel, // deploy前は固定チャンネルに修正予定
-  message: `<@${GreetingWorkflow.inputs.interactivity.interactor.id}>からGCPの権限申請がありました。承認者は確認をお願いします。`,
-});
+// const preApproveMessage = GreetingWorkflow.addStep(Schema.slack.functions.SendMessage, {
+//   channel_id: GreetingWorkflow.inputs.channel, // deploy前は固定チャンネルに修正予定
+//   message: `<@${GreetingWorkflow.inputs.interactivity.interactor.id}>からGCPの権限申請がありました。承認者は確認をお願いします。`,
+// });
 // step3 - formで受け取った内容を通知する
-const preApproveInfoMessage = GreetingWorkflow.addStep(Schema.slack.functions.ReplyInThread, {
-  message_context: preApproveMessage.outputs.message_context,
-  message: `*申請者:* <@${GreetingWorkflow.inputs.interactivity.interactor.id}>\n*GCPプロジェクト:* ${inputForm.outputs.fields.gcp_project}\n*権限:* ${inputForm.outputs.fields.permission}\n*理由:* ${inputForm.outputs.fields.reason}`,
-});
+// const preApproveInfoMessage = GreetingWorkflow.addStep(Schema.slack.functions.ReplyInThread, {
+//   message_context: preApproveMessage.outputs.message_context,
+//   message: `*申請者:* <@${GreetingWorkflow.inputs.interactivity.interactor.id}>\n*GCPプロジェクト:* ${inputForm.outputs.fields.gcp_project}\n*権限:* ${inputForm.outputs.fields.permission}\n*理由:* ${inputForm.outputs.fields.reason}`,
+// });
 // step4 - CFsで承認者に承認を要求
 const requestApprover = GreetingWorkflow.addStep(RequestApprover, {
-  messageContext: preApproveMessage.outputs.message_context,
+  interactivity: inputForm.outputs.interactivity,
+  channelId: GreetingWorkflow.inputs.channel,
+  gcpProject: inputForm.outputs.fields.gcp_project,
+  permission: inputForm.outputs.fields.permission,
+  reason: inputForm.outputs.fields.reason,
 });
+
 export default GreetingWorkflow;
