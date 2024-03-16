@@ -16,7 +16,11 @@ export default function requestApproveBlocks(inputs: any): any[] {
       type: "section",
       text: {
         type: "mrkdwn",
-        text: `*申請者:* <@${inputs.userName}>\n*GCPプロジェクト:* <@${inputs.gcpProject}>\n*権限:* ${inputs.permission}\n*理由:* ${inputs.reason}`,
+        text:
+          `*申請者:* <@${inputs.userName}>\n` +
+          `*GCPプロジェクト:* <@${inputs.gcpProject}>\n` +
+          `*権限:* ${inputs.permission}\n` +
+          `*理由:* ${inputs.reason}`,
       },
     },
   ];

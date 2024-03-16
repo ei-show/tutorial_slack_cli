@@ -27,19 +27,21 @@ const { createContext } = SlackFunctionTester("my-function");
 
 Deno.test("SendTimeOffRequestToManagerFunction runs successfully", async () => {
   const inputs = {
-    employee: "U11111",
-    manager: "U22222",
-    start_date: "2022-03-01",
-    end_date: "2022-03-02",
     interactivity: {
-      interactivity_pointer: "111.222.b79....",
+      interactivity_pointer: "6797379266071.2580605577.b10eb2f23b62532df25c1068eef4241c",
       interactor: {
-        id: "U33333",
-        secret: "NDE0NTIxNDg....",
+        id: "U01HZU5MT9R",
+        secret: "Njc5NzM3OTI2NjA3MS4yNTgwNjA1NTc3LmIxMGViMmYyM2I2MjUzMmRmMjVjMTA2OGVlZjQyNDFj",
       },
     },
+    channelId: "C054TUTER4Y",
+    userName: "U01HZU5MT9R",
+    gcpProject: "test1",
+    permission: "test2",
+    reason: "test3",
   };
   const env = { LOG_LEVEL: "ERROR" };
-  const result = await handler(createContext({ inputs, env }));
+  const token = "";
+  const result = await handler(createContext({ inputs, env, token }));
   assertEquals(result, { completed: false });
 });
