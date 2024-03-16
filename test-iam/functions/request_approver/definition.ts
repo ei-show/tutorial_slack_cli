@@ -17,6 +17,10 @@ export const RequestApprover = DefineFunction({
       channelId: {
         type: Schema.slack.types.channel_id,
       },
+      userName: {
+        type: Schema.slack.types.user_id,
+        description: "申請者",
+      },
       gcpProject: {
         type: Schema.types.string,
         description: "GCPプロジェクト",
@@ -33,6 +37,7 @@ export const RequestApprover = DefineFunction({
     required: [
       "interactivity",
       "channelId",
+      "userName",
       "gcpProject",
       "permission",
       "reason",

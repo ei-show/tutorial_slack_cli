@@ -9,28 +9,14 @@ export default function requestApproveBlocks(inputs: any): any[] {
       type: "header",
       text: {
         type: "plain_text",
-        text: `A new time-off request has been submitted`,
+        text: `GCPの権限申請がありました。`,
       },
     },
     {
       type: "section",
       text: {
         type: "mrkdwn",
-        text: `*From:* <@${inputs.gcp_project}>`,
-      },
-    },
-    {
-      type: "section",
-      text: {
-        type: "mrkdwn",
-        text: `*Dates:* ${inputs.permission}`,
-      },
-    },
-    {
-      type: "section",
-      text: {
-        type: "mrkdwn",
-        text: `*Reason:* ${inputs.reason}`,
+        text: `*申請者:* <@${inputs.userName}>\n*GCPプロジェクト:* <@${inputs.gcpProject}>\n*権限:* ${inputs.permission}\n*理由:* ${inputs.reason}`,
       },
     },
   ];
