@@ -1,5 +1,6 @@
 import { DefineWorkflow, Schema } from "deno-slack-sdk/mod.ts";
 import { RequestApprover } from "../functions/request_approver/definition.ts";
+import { IamRoleBind } from "../functions/iam_role_bind/definition.ts";
 /**
  * A workflow is a set of steps that are executed in order.
  * Each step in a workflow is a function.
@@ -67,5 +68,16 @@ const requestApprover = GreetingWorkflow.addStep(RequestApprover, {
   permission: inputForm.outputs.fields.permission,
   reason: inputForm.outputs.fields.reason,
 });
+// step3 - 承認されたらIAMロールを付与
+// 承認されたらIAMロールを付与
+if (requestApprover.outputs.approved) {
+  GreetingWorkflow.addStep(IamRoleBind, {
+    channelId: GreetingWorkflow.inputs.channel,
+    threadTs: requestApprover.outputs.threadTs,
+    gcpProject: inputForm.outputs.fields.gcp_project,
+    userName: GreetingWorkflow.inputs.interactivity.interactor.id,
+    permission: inputForm.outputs.fields.permission,
+  });
+}  
 
 export default GreetingWorkflow;

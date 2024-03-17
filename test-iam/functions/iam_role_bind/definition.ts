@@ -7,16 +7,20 @@ export const IamRoleBind = DefineFunction({
   source_file: "functions/iam_role_bind/mod.ts",
   input_parameters: {
     properties: {
-      employee: {
-        type: Schema.types.string,
-        description: "権限を付与するユーザ",
-      },
       channelId: {
         type: Schema.slack.types.channel_id,
+      },
+      threadTs: {
+        type: Schema.types.string,
+        description: "スレッドのts",
       },
       gcpProject: {
         type: Schema.types.string,
         description: "GCPプロジェクト",
+      },
+      userName: {
+        type: Schema.slack.types.user_id,
+        description: "権限を付与するユーザ",
       },
       permission: {
         type: Schema.types.string,
@@ -24,18 +28,15 @@ export const IamRoleBind = DefineFunction({
       },
     },
     required: [
-      "employee",
       "channelId",
+      "threadTs",
+      "userName",
       "gcpProject",
       "permission",
     ],
   },
   output_parameters: {
     properties: {
-      greeting: {
-        type: Schema.types.string,
-        description: "挨拶",
-      },
     },
     required: [
     ],

@@ -49,9 +49,14 @@ export const RequestApprover = DefineFunction({
         type: Schema.types.boolean,
         description: "承認結果",
       },
+      threadTs: {
+        type: Schema.types.string,
+        description: "スレッドのts",
+      },
     },
     required: [
       "approved",
+      // "threadTs",
     ],
   },
 });

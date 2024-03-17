@@ -7,7 +7,7 @@ import requestApproveBlocks from "./blocks.ts";
 export default SlackFunction(
   RequestApprover,
   async ({ inputs, client }) => {
-    console.debug("Forwarding the following time off request:", inputs);
+    console.debug("Forwarding the following request approve", inputs);
 
     // Create a block of Block Kit elements composed of several header blocks
     const blocks = requestApproveBlocks(inputs).concat([{
@@ -93,6 +93,7 @@ export default SlackFunction(
       function_execution_id: body.function_data.execution_id,
       outputs: {
         approved: approved,
+        threadTs: body.container.message_ts,
       },
     });
   },

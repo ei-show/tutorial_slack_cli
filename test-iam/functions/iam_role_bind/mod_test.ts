@@ -6,10 +6,11 @@ const { createContext } = SlackFunctionTester("my-function");
 
 Deno.test("IamRoleBind runs successfully", async () => {
   const inputs = {
-    employee: "eisho.uchikakoi@broadleaf.co.jp",
-    channelId: "C054TUTER4Y", // #times-eisho
-    gcpProject: "my-gcp-project",
-    permission: "roles/owner",
+    channelId: "CXXXXXXX",
+    threadTs: "XXXXXX.XXXXXX",
+    userName: "UXXXXXXXXX",
+    gcpProject: "My-Project",
+    permission: "roles/role",
   };
   await handler(createContext({ inputs }));
 });
